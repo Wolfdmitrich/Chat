@@ -1,8 +1,8 @@
 <?php
 // DB client
-$host = 'localhost:3306';
+$host = 'localhost';
 $user = 'root';
-$password = 'root';
+$password = '';
 $db = 'ChatDB';
 
 ?>
