@@ -1,9 +1,14 @@
 <?php
 
-require_once 'connectDB.php';
+require_once 'connectDB.php'; // Include your RedBeanPHP setup
 
-echo '(Вы) Это контейнер сообщений';
-echo '<br>';
-echo '(Ad) Звоните по номеру %&$#%&*$%& и получите бесплатно миллиард рублей.';
+$messages = R::findAll('messages'); // Get all rows from the 'messages' table
+
+foreach ($messages as $message) {
+    $author = $message->author;
+    $value = $message->value;
+
+    echo "<h1>$author: $value</h1>";
+}
 
 ?>

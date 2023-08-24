@@ -28,23 +28,23 @@
             ?>
         </div>
         <br>
-        <form action="assets/api/setUsername.php" method="post">
-            <input type="text" name="username" class="form-control" placeholder="Введите имя пользователя">
+        <?php
+        if (!isset($_COOKIE["username"])) {
+            echo "
+            <form action=\"assets/api/setUsername.php\" method=\"post\">
+            <input type=\"text\" name=\"username\" class=\"form-control\" placeholder=\"Введите имя пользователя\" required>
+            <br>
+            <button type=\"submit\" class=\"btn btn-primary\">Подтвердить</button>
+            </form> 
+            ";
+        }
+        ?>
+        <br>
+        <form action="assets/api/sendMsg.php" method="post">
+            <textarea name="msg" cols="30" rows="10" class="form-control" placeholder="Введите сообщение" required></textarea>
             <br>
             <button type="submit" class="btn btn-primary">Подтвердить</button>
         </form>
-        <br>
-        <?php
-        if ($_COOKIE["username"] !== null) {
-            echo "
-            <form action=\"assets/api/sendMsg.php\" method=\"post\">
-                <textarea name=\"msg\" cols=\"30\" rows=\"10\" class=\"form-control\" placeholder=\"Введите сообщение\"></textarea>
-                <br>
-                <button type=\"submit\" class=\"btn btn-primary\">Подтвердить</button>
-            </form>   
-            ";     
-        }
-        ?>
     </div>
 </body>
 

@@ -1,11 +1,11 @@
 <?php
 
-require_once 'rb.php'; // Подключение RedBeanPHP
-require_once 'config.php'; // Подключение конфига
+require_once 'rb.php'; // Including RedBeanPHP
+require_once 'config.php'; // Including configuration
 
-// Подключение к базе данных
+// Connecting to the database
 try {
-    R::setup("mysql:host=$host;dbname=$db', '$user', '$password'");
+    R::setup("mysql:host=$host;dbname=$db", $user, $password);
 } catch (RedBeanPHP\RedException $e) {
     die($e->getMessage());
 }
