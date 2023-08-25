@@ -20,31 +20,75 @@
 </head>
 
 <body>
+    <?php
+    function isRegistered() {
+        if (isset($_COOKIE['username'])) {
+            return "block";
+        } else {
+            return "none";
+        }
+    }
+
+    ?>
     <div class="container">
-        <h1>Chat | WolfKey</h1>
+        <div class="exit" style="display: <?php echo isRegistered(); ?>">
+            <a href="assets/api/logout.php" style='text-decoration: none'>Выйти</a>
+        </div>
+        <?php
+
+        if (isset($_COOKIE['username'])) {
+            echo "<h1>Привет, " . $_COOKIE['username'] . "</h1> <br>";
+        } else {
+            echo "<h1>Привет, гость!</h1>";
+            echo "<br>";
+        }
+
+        ?>
+
+
+        <?php
+        if (!isset($_COOKIE["username"])) {
+            echo "
+            <h1>Регистрация</h1>
+            <form action=\"assets/api/registerHandler.php\" method=\"post\">
+            <input type=\"text\" name=\"username\" class=\"form-control\" placeholder=\"Введите имя пользователя\" required>
+            <br>
+            <input type=\"password\" name=\"password\" class=\"form-control\" placeholder=\"Введите пароль\" required>
+            <br>
+            <button type=\"submit\" class=\"btn btn-primary\">Подтвердить</button>
+            </form>
+            <br>
+            <a href='assets/api/login.html' style='text-decoration: none; font-size: large;'>Есть аккаунт, войди в него!</a>
+            <br>
+            <br>
+            <br>
+            <br>
+            ";
+        }
+        ?>
         <div class="messages">
+            <h1 id="messages_header">Сообщения:</h1>
+            <br>
             <?php
             require_once 'assets/api/loadMessages.php';
             ?>
         </div>
         <br>
         <?php
-        if (!isset($_COOKIE["username"])) {
+
+        if (isset($_COOKIE["username"])) {
             echo "
-            <form action=\"assets/api/setUsername.php\" method=\"post\">
-            <input type=\"text\" name=\"username\" class=\"form-control\" placeholder=\"Введите имя пользователя\" required>
-            <br>
-            <button type=\"submit\" class=\"btn btn-primary\">Подтвердить</button>
-            </form> 
+                <form action=\"assets/api/sendMsg.php\" method=\"post\">
+                    <textarea name=\"msg\" cols=\"30\" rows=\"10\" class=\"form-control\" placeholder=\"Введите сообщение\" required></textarea>
+                    <br>
+                    <button type=\"submit\" class=\"btn btn-primary\">Подтвердить</button>
+                </form>
+                <br>
+                <br>
             ";
         }
+
         ?>
-        <br>
-        <form action="assets/api/sendMsg.php" method="post">
-            <textarea name="msg" cols="30" rows="10" class="form-control" placeholder="Введите сообщение" required></textarea>
-            <br>
-            <button type="submit" class="btn btn-primary">Подтвердить</button>
-        </form>
     </div>
 </body>
 
